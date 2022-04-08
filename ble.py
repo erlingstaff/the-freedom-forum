@@ -14,6 +14,7 @@ def scan():
 
         print("\n")
 
+
         print("Device:")
 
         print("Device Name: %s" % (name))
