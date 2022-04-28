@@ -13,7 +13,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="65dp"
         android:layout_gravity="bottom"
         android:background="@color/primary"
         android:minHeight="?attr/actionBarSize"
@@ -75,12 +75,12 @@
         android:id="@+id/editTextTextPersonName2"
         android:layout_width="209dp"
         android:layout_height="34dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
         android:hint="@string/message"
-        android:inputType="textNoSuggestions"
+        android:inputType="textLongMessage|textNoSuggestions"
         android:paddingLeft="10dp"
         android:textAlignment="viewStart"
         android:textColor="#E4E4E4"
@@ -88,7 +88,8 @@
         android:textColorHint="#E6E6E6"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/bottomAppBar" />
+        app:layout_constraintStart_toStartOf="@+id/bottomAppBar"
+        tools:ignore="TouchTargetSizeCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
