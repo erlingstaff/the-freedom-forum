@@ -20,7 +20,9 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+
+        />
 
 
     <Button
@@ -82,6 +84,7 @@
         android:hint="@string/message"
         android:inputType="textLongMessage|textNoSuggestions"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:textAlignment="viewStart"
         android:textColor="#E4E4E4"
         android:textColorHighlight="#E4E4E4"

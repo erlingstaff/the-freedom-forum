@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/erlin/Documents/Prosjekter/osloff/android-prototype/app/src/main/res/drawable/bottom_border.xml" value="0.3105" />
         <entry key="..\:/Users/erlin/Documents/Prosjekter/osloff/android-prototype/app/src/main/res/drawable/rounded_edittext.xml" value="0.3105" />
+        <entry key="..\:/Users/erlin/Documents/Prosjekter/osloff/android-prototype/app/src/main/res/drawable/top_border.xml" value="0.3105" />
         <entry key="..\:/Users/erlin/Documents/Prosjekter/osloff/android-prototype/app/src/main/res/layout/activity_main.xml" value="0.39010416666666664" />
         <entry key="..\:/Users/erlin/Documents/Prosjekter/osloff/android-prototype/app/src/main/res/layout/fragment_chat.xml" value="0.39010416666666664" />
         <entry key="..\:/Users/erlin/Documents/Prosjekter/osloff/android-prototype/app/src/main/res/layout/recycler_view_item.xml" value="0.4041666666666667" />
