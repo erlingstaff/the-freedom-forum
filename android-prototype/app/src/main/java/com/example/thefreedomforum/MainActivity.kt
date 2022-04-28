@@ -16,13 +16,14 @@ import com.example.thefreedomforum.adapters.ItemAdapter
 
 class MainActivity : AppCompatActivity() {
 
-    private var itms = ArrayList<String>()
+    private var itms = ArrayList<ArrayList<String>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()                          //hide the title bar
         setContentView(R.layout.activity_main)
         val btn = findViewById<Button>(R.id.button)
+
         btn.setOnClickListener {
             val message = findViewById<EditText>(R.id.EditText).text.toString()
             sanitizeAndBroadcast(message)
@@ -36,14 +37,20 @@ class MainActivity : AppCompatActivity() {
         val itemAdapter = ItemAdapter(this, itms)
         recv.adapter = itemAdapter
 
-        itms.add("item ny")
+        val nytest = ArrayList<String>()
+        nytest.add("test")
+        nytest.add("test2")
+        itms.add(nytest)
 
     }
 
-    private fun getItemList(): ArrayList<String> {
-        val list = ArrayList<String>()
+    private fun getItemList(): ArrayList<ArrayList<String>> {
+        val list = ArrayList<ArrayList<String>>()
         for (i in 0..15){
-            list.add("Item $i")
+            val item = ArrayList<String>()
+            item.add("Navn her")
+            item.add("Melding her")
+            list.add(item)
         }
         return list
     }
@@ -63,6 +70,10 @@ class MainActivity : AppCompatActivity() {
             toast.setGravity(Gravity.CENTER, 0, 0)
             toast.show()
         }
+        val new_item = ArrayList<String>()
+        new_item.add("Sender")
+        new_item.add(message)
+        itms.add(new_item)
 
 
     }
