@@ -18,21 +18,21 @@
         tools:layout_editor_absoluteX="1dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/recyclerName"
         android:layout_width="130dp"
         android:layout_height="37dp"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="4dp"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerMessage"
         app:layout_constraintStart_toStartOf="@+id/toolbar2"
         app:layout_constraintTop_toTopOf="@+id/toolbar2"
         app:layout_constraintVertical_bias="0.933"
         tools:text="@tools:sample/full_names" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/recyclerMessage"
         android:layout_width="254dp"
         android:layout_height="41dp"
         android:layout_marginTop="56dp"
@@ -44,16 +44,16 @@
         tools:text="@tools:sample/lorem[4:10]" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/recyclerTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="220dp"
         android:layout_marginBottom="20dp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/recyclerName"
         tools:text="@tools:sample/date/hhmm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
