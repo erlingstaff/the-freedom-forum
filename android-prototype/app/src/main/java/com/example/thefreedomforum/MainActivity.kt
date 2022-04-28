@@ -39,7 +39,8 @@ class MainActivity : AppCompatActivity() {
             toast.show()
         }
 
-        val sanitizedMessage = message.replace("[^a-zA-Z0-9]".toRegex(), "")
+
+
 
 
     }
