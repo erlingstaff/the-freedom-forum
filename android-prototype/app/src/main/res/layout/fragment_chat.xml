@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="#FFFFFF"
     tools:context=".ChatFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -41,11 +41,11 @@
         app:boxCornerRadiusTopEnd="0dp"
         app:boxCornerRadiusTopStart="0dp"
 
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName2"
+        app:layout_constraintBottom_toBottomOf="@+id/EditText"
         app:layout_constraintEnd_toEndOf="@+id/bottomAppBar"
         app:layout_constraintHorizontal_bias="0.808"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName2"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName2"
+        app:layout_constraintStart_toEndOf="@+id/EditText"
+        app:layout_constraintTop_toTopOf="@+id/EditText"
         app:rippleColor="#000000"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/EditText"
         android:layout_width="209dp"
         android:layout_height="34dp"
         android:layout_marginStart="44dp"
