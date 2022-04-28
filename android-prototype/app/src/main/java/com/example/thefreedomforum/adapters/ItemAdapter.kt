@@ -25,7 +25,7 @@ class ItemAdapter(val context: Context, val itemList: ArrayList<String>)
         val item = itemList.get(position)
         holder.recName.text = "Nummer $item"
         holder.recMessage.text = "Melding herifra"
-        holder.recTime.text = "20:20"
+        holder.recTime.text = "20"
     }
 
     override fun getItemCount(): Int {

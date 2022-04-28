@@ -15,6 +15,9 @@ import com.example.thefreedomforum.adapters.ItemAdapter
 
 
 class MainActivity : AppCompatActivity() {
+
+    private var itms = ArrayList<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()                          //hide the title bar
@@ -28,8 +31,12 @@ class MainActivity : AppCompatActivity() {
         val recv = findViewById<RecyclerView>(R.id.recv)
         recv.layoutManager = LinearLayoutManager(this)
 
-        val itemAdapter = ItemAdapter(this, getItemList())
+        itms = getItemList()
+
+        val itemAdapter = ItemAdapter(this, itms)
         recv.adapter = itemAdapter
+
+        itms.add("item ny")
 
     }
 

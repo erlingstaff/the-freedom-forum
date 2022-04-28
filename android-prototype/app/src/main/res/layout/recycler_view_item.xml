@@ -9,8 +9,8 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
-        android:layout_width="279dp"
-        android:layout_height="113dp"
+        android:layout_width="264dp"
+        android:layout_height="76dp"
         android:layout_marginStart="4dp"
         android:background="@drawable/rounded_recycler_view_item"
         android:minHeight="?attr/actionBarSize"
@@ -18,31 +18,31 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/recyclerName"
-        android:layout_width="130dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="12dp"
+        android:layout_width="91dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="20dp"
         android:layout_marginBottom="4dp"
         android:textColor="@color/white"
-        android:textSize="15sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerMessage"
         app:layout_constraintStart_toStartOf="@+id/toolbar2"
         app:layout_constraintTop_toTopOf="@+id/toolbar2"
-        app:layout_constraintVertical_bias="0.933"
+        app:layout_constraintVertical_bias="1.0"
         tools:text="@tools:sample/full_names" />
 
     <TextView
         android:id="@+id/recyclerMessage"
         android:layout_width="254dp"
         android:layout_height="41dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="28dp"
         android:textColor="@color/white"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="@+id/toolbar2"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/toolbar2"
         app:layout_constraintTop_toTopOf="@+id/toolbar2"
         tools:text="@tools:sample/lorem[4:10]" />
@@ -51,13 +51,11 @@
         android:id="@+id/recyclerTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="220dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="4dp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerMessage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/recyclerName"
+        app:layout_constraintTop_toTopOf="@+id/toolbar2"
         tools:text="@tools:sample/date/hhmm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
