@@ -17,6 +17,8 @@ import com.example.thefreedomforum.adapters.ItemAdapter
 class MainActivity : AppCompatActivity() {
 
     private var itms = ArrayList<ArrayList<String>>()
+    private lateinit var adapter: ItemAdapter
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,11 +33,12 @@ class MainActivity : AppCompatActivity() {
 
         val recv = findViewById<RecyclerView>(R.id.recv)
         recv.layoutManager = LinearLayoutManager(this)
-
         itms = getItemList()
-
         val itemAdapter = ItemAdapter(this, itms)
         recv.adapter = itemAdapter
+
+        adapter = itemAdapter
+        recyclerView = recv
 
         val nytest = ArrayList<String>()
         nytest.add("test")
@@ -57,6 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun sanitizeAndBroadcast(message: String) {
         val spaceGuard = message.replace(" ", "")
+        Log.d("MainActivity", "Message: $spaceGuard")
         if (spaceGuard.isEmpty()) {
             Log.d("isEmpty", "isEmpty")
             val toast = Toast.makeText(this, "Empty\nMessage\n", Toast.LENGTH_SHORT)
@@ -74,7 +78,8 @@ class MainActivity : AppCompatActivity() {
         new_item.add("Sender")
         new_item.add(message)
         itms.add(new_item)
-
+        adapter.notifyDataSetChanged()
+        recyclerView.scrollToPosition(adapter.itemCount - 1)
 
     }
 
