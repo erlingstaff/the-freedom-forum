@@ -30,9 +30,17 @@ class MainActivity : AppCompatActivity() {
             val toast = Toast.makeText(this, "Empty\nMessage\n", Toast.LENGTH_SHORT)
             toast.setGravity(Gravity.CENTER, 0, 0)
             toast.show()
-
         }
+        val charAmount = message.length
+        if (charAmount > 160){
+            Log.d("tooLong", "tooLong")
+            val toast = Toast.makeText(this, "Message\nToo Long\n", Toast.LENGTH_SHORT)
+            toast.setGravity(Gravity.CENTER, 0, 0)
+            toast.show()
+        }
+
         val sanitizedMessage = message.replace("[^a-zA-Z0-9]".toRegex(), "")
+
 
     }
 
