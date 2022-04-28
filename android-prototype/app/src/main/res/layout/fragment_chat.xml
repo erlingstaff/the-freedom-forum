@@ -9,37 +9,42 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <com.google.android.material.bottomappbar.BottomAppBar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/bottomAppBar"
-        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_gravity="bottom"
+        android:background="@color/primary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
-        android:layout_width="239dp"
-        android:layout_height="34dp"
-        android:layout_marginBottom="36dp"
+        android:layout_width="190dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="25dp"
         app:boxBackgroundColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomAppBar"
         app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:boxCornerRadiusBottomEnd="15dp"
-        app:boxCornerRadiusTopEnd="15dp"
-        app:boxCornerRadiusBottomStart="15dp"
-        app:boxCornerRadiusTopStart="15dp"
-        >
+        android:textColor="#E4E4E4"
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/message"
-            android:textColor="#FFFFFF"
+            android:autoText="false"
+            android:hint="@string/message"
+            android:textAlignment="gravity"
+            android:textColor="#E4E4E4"
+            android:textColorHint="#E4E4E4"
+            android:textColorLink="#E4E4E4"
+            android:textSize="10sp"
             tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,11 +57,15 @@
         android:backgroundTint="@color/black"
         android:text="Send"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="#E4E4E4"
         android:textColorHighlight="#000000"
         android:textColorHint="#000000"
         android:textColorLink="#000000"
         android:textSize="12sp"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusTopStart="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/bottomAppBar"
         app:rippleColor="#000000"
@@ -66,22 +75,40 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="?attr/colorPrimary"
+        android:background="@color/primary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Global Chat"
-        android:textColor="#FFFFFF"
+        android:textColor="#E4E4E4"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName2"
+        android:layout_width="224dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="247dp"
+        android:background="@color/graywhite"
+        android:backgroundTint="#595959"
+        android:ems="10"
+        android:inputType="textNoSuggestions|textPersonName"
+        android:text="Name"
+        android:textAlignment="viewStart"
+        android:textColor="#E4E4E4"
+        android:textColorHighlight="#E4E4E4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
