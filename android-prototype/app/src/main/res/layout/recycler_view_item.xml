@@ -4,58 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
-    android:layout_marginTop="10dp">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
-        android:layout_width="264dp"
-        android:layout_height="76dp"
-        android:layout_marginStart="4dp"
-        android:background="@drawable/rounded_recycler_view_item"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+    android:paddingBottom="5sp">
 
     <TextView
         android:id="@+id/recyclerName"
-        android:layout_width="91dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="4dp"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/primary"
+        android:textSize="11sp"
         app:layout_constraintStart_toStartOf="@+id/toolbar2"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/full_names" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="268dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/rounded_recycler_view_item"
+        android:minHeight="?attr/actionBarSize"
+        android:paddingBottom="10sp"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerName" />
 
     <TextView
         android:id="@+id/recyclerMessage"
-        android:layout_width="254dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="255dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="4dp"
+        android:paddingTop="2sp"
         android:textColor="@color/white"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="@+id/toolbar2"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/toolbar2"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerName"
         tools:text="@tools:sample/lorem[4:10]" />
 
     <TextView
         android:id="@+id/recyclerTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/white"
+        android:layout_marginStart="152dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="@color/primary"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerMessage"
         app:layout_constraintStart_toEndOf="@+id/recyclerName"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2"
         tools:text="@tools:sample/date/hhmm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
