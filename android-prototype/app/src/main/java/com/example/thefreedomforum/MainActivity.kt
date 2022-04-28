@@ -9,6 +9,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.thefreedomforum.adapters.ItemAdapter
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +24,21 @@ class MainActivity : AppCompatActivity() {
             val message = findViewById<EditText>(R.id.EditText).text.toString()
             sanitizeAndBroadcast(message)
         }
+
+        val recv = findViewById<RecyclerView>(R.id.recv)
+        recv.layoutManager = LinearLayoutManager(this)
+
+        val itemAdapter = ItemAdapter(this, getItemList())
+        recv.adapter = itemAdapter
+
+    }
+
+    private fun getItemList(): ArrayList<String> {
+        val list = ArrayList<String>()
+        for (i in 0..15){
+            list.add("Item $i")
+        }
+        return list
     }
 
     private fun sanitizeAndBroadcast(message: String) {
@@ -38,9 +56,6 @@ class MainActivity : AppCompatActivity() {
             toast.setGravity(Gravity.CENTER, 0, 0)
             toast.show()
         }
-
-
-
 
 
     }

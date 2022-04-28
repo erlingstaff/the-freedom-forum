@@ -11,11 +11,15 @@
         android:id="@+id/toolbar2"
         android:layout_width="279dp"
         android:layout_height="113dp"
+        android:layout_marginStart="4dp"
         android:background="@drawable/rounded_recycler_view_item"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        />
 
     <TextView
         android:id="@+id/recyclerName"
