@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thefreedomforum.R
 import java.time.LocalDateTime
@@ -33,9 +34,16 @@ class ItemAdapter(val context: Context, val itemList: ArrayList<ArrayList<String
         val name = item.get(0)
         val message = item.get(1)
         val time = item.get(2)
+
+        if (name == "Me") {
+            val constraintParams = holder.recMessage.layoutParams as ConstraintLayout.LayoutParams
+            constraintParams.startToStart = ConstraintLayout.LayoutParams.UNSET
+            constraintParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
+
+        }
+
         holder.recName.text = name
         holder.recMessage.text = message
-
         holder.recTime.text = time
     }
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
         val new_item = ArrayList<String>()
-        new_item.add("Sender")
+        new_item.add("Me")
         new_item.add(message)
         new_item.add(getTime())
 
