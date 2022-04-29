@@ -27,10 +27,15 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()                          //hide the title bar
         setContentView(R.layout.activity_main)
         val btn = findViewById<Button>(R.id.button)
-
+        val editText = findViewById<EditText>(R.id.EditText)
         btn.setOnClickListener {
             val message = findViewById<EditText>(R.id.EditText).text.toString()
+            editText.setText("")
             sanitizeAndBroadcast(message)
+        }
+        editText.setOnClickListener{
+            Log.d("EditText", editText.getText().toString())
+            editText.setText("")
         }
 
         val recv = findViewById<RecyclerView>(R.id.recv)
@@ -64,6 +69,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sanitizeAndBroadcast(message: String) {
+
+        val messageField = findViewById<EditText>(R.id.EditText)
+        messageField.getText().clear();
+
+
         val spaceGuard = message.replace(" ", "")
         Log.d("MainActivity", "Message: $spaceGuard")
         if (spaceGuard.isEmpty()) {
@@ -71,6 +81,7 @@ class MainActivity : AppCompatActivity() {
             val toast = Toast.makeText(this, "Empty\nMessage\n", Toast.LENGTH_SHORT)
             toast.setGravity(Gravity.CENTER, 0, 0)
             toast.show()
+            return
         }
         val charAmount = message.length
         if (charAmount > 160){
@@ -78,6 +89,7 @@ class MainActivity : AppCompatActivity() {
             val toast = Toast.makeText(this, "Message\nToo Long\n", Toast.LENGTH_SHORT)
             toast.setGravity(Gravity.CENTER, 0, 0)
             toast.show()
+            return
         }
         val new_item = ArrayList<String>()
         new_item.add("Sender")
@@ -87,6 +99,7 @@ class MainActivity : AppCompatActivity() {
         itms.add(new_item)
         adapter.notifyDataSetChanged()
         recyclerView.scrollToPosition(adapter.itemCount - 1)
+
 
     }
 
