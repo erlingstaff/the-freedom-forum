@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thefreedomforum.adapters.ItemAdapter
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -43,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         val nytest = ArrayList<String>()
         nytest.add("test")
         nytest.add("test2")
+        nytest.add(getTime())
         itms.add(nytest)
 
     }
@@ -53,6 +56,8 @@ class MainActivity : AppCompatActivity() {
             val item = ArrayList<String>()
             item.add("Navn her")
             item.add("Melding her")
+            item.add(getTime())
+
             list.add(item)
         }
         return list
@@ -77,10 +82,35 @@ class MainActivity : AppCompatActivity() {
         val new_item = ArrayList<String>()
         new_item.add("Sender")
         new_item.add(message)
+        new_item.add(getTime())
+
         itms.add(new_item)
         adapter.notifyDataSetChanged()
         recyclerView.scrollToPosition(adapter.itemCount - 1)
 
+    }
+
+
+    private fun getTime(): String {
+        var tim = ""
+        var min = ""
+
+        val rightNow = Calendar.getInstance()
+        val currentHourIn24Format: Int = rightNow.get(Calendar.HOUR_OF_DAY)
+        if (currentHourIn24Format == 0) {
+            tim = "00"
+        } else {
+            tim = currentHourIn24Format.toString()
+        }
+
+        val currentMinute: Int = rightNow.get(Calendar.MINUTE)
+        if (currentMinute < 10) {
+            min = "0$currentMinute"
+        } else {
+            min = currentMinute.toString()
+        }
+        val time = "$tim:$min"
+        return time
     }
 
 }

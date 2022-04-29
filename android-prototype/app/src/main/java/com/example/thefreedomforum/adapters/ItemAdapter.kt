@@ -32,28 +32,9 @@ class ItemAdapter(val context: Context, val itemList: ArrayList<ArrayList<String
         val item = itemList.get(position)
         val name = item.get(0)
         val message = item.get(1)
-
+        val time = item.get(2)
         holder.recName.text = name
         holder.recMessage.text = message
-
-        var tim = ""
-        var min = ""
-
-        val rightNow = Calendar.getInstance()
-        val currentHourIn24Format: Int = rightNow.get(Calendar.HOUR_OF_DAY)
-        if (currentHourIn24Format == 0) {
-            tim = "00"
-        } else {
-            tim = currentHourIn24Format.toString()
-        }
-
-        val currentMinute: Int = rightNow.get(Calendar.MINUTE)
-        if (currentMinute < 10) {
-            min = "0$currentMinute"
-        } else {
-            min = currentMinute.toString()
-        }
-        val time = "$tim:$min"
 
         holder.recTime.text = time
     }
