@@ -1,5 +1,13 @@
 package com.example.thefreedomforum
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothManager
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -10,6 +18,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thefreedomforum.adapters.ItemAdapter
@@ -23,10 +32,23 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ItemAdapter
     private lateinit var recyclerView: RecyclerView
 
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()                          //hide the title bar
         setContentView(R.layout.activity_main)
+        val bluetoothManager = applicationContext.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
+        val bluetoothAdapter = bluetoothManager.adapter
+
+        if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled) {
+            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            startActivityForResult(enableBtIntent, 1)
+        }
+
+
+
+
+
         val btn = findViewById<Button>(R.id.button)
         val editText = findViewById<EditText>(R.id.EditText)
         btn.setOnClickListener {

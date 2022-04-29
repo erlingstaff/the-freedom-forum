@@ -41,6 +41,12 @@ class ItemAdapter(val context: Context, val itemList: ArrayList<ArrayList<String
             constraintParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
             holder.recMessage.setBackgroundResource(R.drawable.rounded_recycler_view_item_blue)
         }
+        else{
+            val constraintParams = holder.recMessage.layoutParams as ConstraintLayout.LayoutParams
+            constraintParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+            constraintParams.endToEnd = ConstraintLayout.LayoutParams.UNSET
+            holder.recMessage.setBackgroundResource(R.drawable.rounded_recycler_view_item)
+        }
 
         holder.recName.text = name
         holder.recMessage.text = message
