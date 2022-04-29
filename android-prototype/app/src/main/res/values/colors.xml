@@ -10,5 +10,6 @@
     <color name="background">#000000</color>
     <color name="primary">#333333</color>
     <color name="graywhite">#E4E4E4</color>
+    <color name="sendMessage">#EE002268</color>
 
 </resources>
