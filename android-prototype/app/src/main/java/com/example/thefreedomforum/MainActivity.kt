@@ -13,10 +13,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,10 +42,20 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(enableBtIntent, 1)
         }
 
+        val settingsbtn = findViewById<ImageView>(R.id.settingsbtn)
+        settingsbtn.setOnClickListener{
+            //TODO: open settings activity
+            //val intent = Intent(this, SettingsActivity::class.java)
+            //startActivity(intent)
+        }
+        val infobtn = findViewById<ImageView>(R.id.infobtn)
+        infobtn.setOnClickListener{
+            //TODO: open info activity
+            //val intent = Intent(this, InfoActivity::class.java)
+            //startActivity(intent)
+        }
 
-
-
-        val btn = findViewById<Button>(R.id.button)
+        val btn = findViewById<ImageView>(R.id.button)
         val editText = findViewById<EditText>(R.id.EditText)
         btn.setOnClickListener {
             val message = findViewById<EditText>(R.id.EditText).text.toString()

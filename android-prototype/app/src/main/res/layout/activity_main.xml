@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".ChatFragment"
-    >
+    tools:context=".ChatFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -36,32 +35,6 @@
         />
 
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="66dp"
-        android:layout_height="44dp"
-        android:layout_marginEnd="28dp"
-        android:backgroundTint="@color/black"
-        android:text="Send"
-        android:textAlignment="center"
-        android:textColor="#E4E4E4"
-        android:textColorHighlight="#000000"
-        android:textColorHint="#000000"
-        android:textColorLink="#000000"
-        android:textSize="10sp"
-        app:boxCornerRadiusBottomEnd="0dp"
-        app:boxCornerRadiusBottomStart="0dp"
-        app:boxCornerRadiusTopEnd="0dp"
-        app:boxCornerRadiusTopStart="0dp"
-
-        app:layout_constraintBottom_toBottomOf="@+id/EditText"
-        app:layout_constraintEnd_toEndOf="@+id/bottomAppBar"
-        app:layout_constraintHorizontal_bias="0.808"
-        app:layout_constraintStart_toEndOf="@+id/EditText"
-        app:layout_constraintTop_toTopOf="@+id/EditText"
-        app:rippleColor="#000000"
-        tools:ignore="TouchTargetSizeCheck" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -74,17 +47,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/recyclerMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Global Chat"
-        android:textColor="#E4E4E4"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
-
-    <TextView
         android:id="@+id/recyclerMessage2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,10 +54,10 @@
         android:textColor="#E4E4E4"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.874"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintHorizontal_bias="0.465"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.761" />
+        app:layout_constraintVertical_bias="0.571" />
 
     <EditText
         android:id="@+id/EditText"
@@ -120,13 +82,43 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="15dp"
-        android:layout_height="25dp"
+        android:layout_width="12dp"
+        android:layout_height="22dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:backgroundTint="#FF0000"
         android:text="Button"
         app:layout_constraintStart_toEndOf="@+id/recyclerMessage2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/button"
+        android:layout_width="45dp"
+        android:layout_height="24dp"
+        android:src="@mipmap/arrowvec"
+        app:layout_constraintBottom_toBottomOf="@+id/EditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/EditText"
+        app:layout_constraintTop_toTopOf="@+id/EditText" />
+
+    <ImageView
+        android:id="@+id/settingsbtn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/settingsvec"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/infobtn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/infovec"
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 
 
