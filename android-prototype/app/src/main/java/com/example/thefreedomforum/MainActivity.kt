@@ -44,13 +44,13 @@ class MainActivity : AppCompatActivity() {
 
         val settingsbtn = findViewById<ImageView>(R.id.settingsbtn)
         settingsbtn.setOnClickListener{
-            //TODO: open settings activity
+            //TODO: open settings activity, settings for chaninging name and channel
             //val intent = Intent(this, SettingsActivity::class.java)
             //startActivity(intent)
         }
         val infobtn = findViewById<ImageView>(R.id.infobtn)
         infobtn.setOnClickListener{
-            //TODO: open info activity
+            //TODO: open info activity, show FAQ, simple explenation, and explain protocol
             //val intent = Intent(this, InfoActivity::class.java)
             //startActivity(intent)
         }
