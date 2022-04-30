@@ -6,4 +6,6 @@ void loop();
 
 void checkMessage(String message);
 
-void sendMessage(String message);
+void sendMessageOverLoRa(String message);
+
+void sendMessageOverBLE(String message);
