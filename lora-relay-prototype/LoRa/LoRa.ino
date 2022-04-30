@@ -10,7 +10,7 @@ void setup() {
   loraConfig();
 }
 
-void loraConfig(){
+void loraConfig() {
   myserial.println("AT+RESET");
   delay(50);
   myserial.println("AT+MODE=0");
@@ -37,18 +37,24 @@ void loop() {
   }
 }
 
-void checkMessage(String message){
-  if (message.length() < 240){
+void checkIfRelayMessage(String message) {
+  if (message.indexOf("+RECV") > 0) {
+    checkMessage(message);
+  }
+}
+
+void checkMessage(String message) {
+  if (message.length() < 240) {
     sendMessageOverLoRa(message);
     sendMessageOverBLE(message);
   }
 }
 
-void sendMessageOverLoRa(String message){
+void sendMessageOverLoRa(String message) {
   String len = String(message.length());
-  myserial.println("AT+SEND=5,"+len+","+message);
+  myserial.println("AT+SEND=5," + len + "," + message);
 }
 
-void sendMessageOverBLE(String message){
+void sendMessageOverBLE(String message) {
   delay(5);
 }
