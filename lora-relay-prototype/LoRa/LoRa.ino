@@ -39,11 +39,16 @@ void loop() {
 
 void checkMessage(String message){
   if (message.length() < 240){
-    sendMessage(message);
+    sendMessageOverLoRa(message);
+    sendMessageOverBLE(message);
   }
 }
 
-void sendMessage(String message){
+void sendMessageOverLoRa(String message){
   String len = String(message.length());
   myserial.println("AT+SEND=5,"+len+","+message);
+}
+
+void sendMessageOverBLE(String message){
+  delay(5);
 }
