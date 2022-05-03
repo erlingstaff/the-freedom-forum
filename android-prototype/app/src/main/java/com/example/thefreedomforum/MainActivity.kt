@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     private val PERMISSION_REQUEST_FINE_LOCATION = 1
     private val PERMISSION_REQUEST_BACKGROUND_LOCATION = 2
 
-
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,8 +91,79 @@ class MainActivity : AppCompatActivity() {
         val bluetoothAdapter = bluetoothManager.adapter
 
         val newuuid = UUID.fromString("4fafc201-1fb5-459e-8fcc-c5c9c331914b")
-
+        val anotheruuid = UUID.fromString("00001802-0000-1000-8000-00805f9b34ff")
         val bleAdvertiser = bluetoothAdapter.getBluetoothLeAdvertiser()
+
+        val gatt = object : BluetoothGattServerCallback(){
+            override fun onCharacteristicReadRequest (device : BluetoothDevice, requestId : Int, offset: Int, characteristic: BluetoothGattCharacteristic) {
+                super.onCharacteristicReadRequest(device, requestId, offset, characteristic)
+                Log.d("onCharacteristicReadRequest", "device: $device, requestId: $requestId, offset: $offset, characteristic: $characteristic")
+            }
+            override fun onCharacteristicWriteRequest (device : BluetoothDevice, requestId : Int, characteristic : BluetoothGattCharacteristic, preparedWrite : Boolean, responseNeeded : Boolean, offset : Int, value : ByteArray) {
+                super.onCharacteristicWriteRequest(device, requestId, characteristic, preparedWrite, responseNeeded, offset, value)
+                Log.d("onCharacteristicWriteRequest", "device: $device, requestId: $requestId, characteristic: $characteristic, preparedWrite: $preparedWrite, responseNeeded: $responseNeeded, offset: $offset, value: $value")
+            }
+
+            override fun onDescriptorReadRequest (device : BluetoothDevice, requestId : Int, offset : Int, descriptor : BluetoothGattDescriptor) {
+                super.onDescriptorReadRequest(device, requestId, offset, descriptor)
+                Log.d("onDescriptorReadRequest", "device: $device, requestId: $requestId, offset: $offset, descriptor: $descriptor")
+            }
+            override fun onDescriptorWriteRequest (device : BluetoothDevice, requestId : Int, descriptor : BluetoothGattDescriptor, preparedWrite : Boolean, responseNeeded : Boolean, offset : Int, value: ByteArray) {
+                super.onDescriptorWriteRequest(device, requestId, descriptor, preparedWrite, responseNeeded, offset, value)
+                Log.d("onDescriptorWriteRequest", "device: $device, requestId: $requestId, descriptor: $descriptor, preparedWrite: $preparedWrite, responseNeeded: $responseNeeded, offset: $offset, value: $value")
+            }
+            override fun onExecuteWrite (device : BluetoothDevice, requestId : Int, execute : Boolean){
+                super.onExecuteWrite(device, requestId, execute)
+                Log.d("onExecuteWrite", "device: $device, requestId: $requestId, execute: $execute")
+            }
+            override fun onNotificationSent (device : BluetoothDevice, requestId : Int){
+                super.onNotificationSent(device, requestId)
+                Log.d("onNotificationSent", "device: $device, requestId: $requestId")
+            }
+            override fun onMtuChanged (device : BluetoothDevice, mtu : Int){
+                super.onMtuChanged(device, mtu)
+                Log.d("onMtuChanged", "device: $device, mtu: $mtu")
+            }
+            override fun onConnectionStateChange (device : BluetoothDevice, status : Int, newState : Int){
+                super.onConnectionStateChange(device, status, newState)
+                Log.d("onConnectionStateChange", "device: $device, status: $status, newState: $newState")
+            }
+            override fun onServiceAdded (status : Int, service : BluetoothGattService){
+                super.onServiceAdded(status, service)
+                Log.d("onServiceAdded", "status: $status, service: $service")
+            }
+        }
+
+
+        var server = bluetoothManager.openGattServer(this, gatt)
+        val service = BluetoothGattService(UUID.fromString("00001801-0000-1000-8000-00805f9b34fb"), BluetoothGattService.SERVICE_TYPE_PRIMARY)
+        val characteristic = BluetoothGattCharacteristic(UUID.fromString("00002a00-0000-1000-8000-00805f9b34fb"), BluetoothGattCharacteristic.PROPERTY_READ, BluetoothGattCharacteristic.PERMISSION_READ)
+        service.addCharacteristic(characteristic)
+        server.addService(service)
+
+        val set = AdvertiseSettings.Builder()
+            .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY)
+            .setConnectable(true)
+            .setTimeout(0)
+            .setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH)
+            .build()
+
+        val data = AdvertiseData.Builder()
+            .setIncludeDeviceName(true)
+            .addServiceUuid(ParcelUuid(UUID.fromString("00001801-0000-1000-8000-00805f9b34fb")))
+            .build()
+
+        bleAdvertiser.startAdvertising(set, data, object : AdvertiseCallback() {
+            override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
+                super.onStartSuccess(settingsInEffect)
+                Log.d("onStartSuccess", "settingsInEffect: $settingsInEffect")
+            }
+
+            override fun onStartFailure(errorCode: Int) {
+                super.onStartFailure(errorCode)
+                Log.d("onStartFailure", "errorCode: $errorCode")
+            }
+        })
 
 
 
