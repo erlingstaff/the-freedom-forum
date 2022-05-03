@@ -180,7 +180,7 @@ class MainActivity : AppCompatActivity() {
         val data = AdvertiseData.Builder()
             .setIncludeDeviceName(true)
             //.addServiceUuid(ParcelUuid(serviceUUID))
-            //.addServiceUuid(ParcelUuid(UUID.fromString("00001801-0000-1000-8000-00805f9b34fb")))
+            .addServiceUuid(ParcelUuid(UUID.fromString("00001801-0000-1000-8000-00805f9b34fb")))
             .build()
 
         val scanResponse = AdvertiseData.Builder()
