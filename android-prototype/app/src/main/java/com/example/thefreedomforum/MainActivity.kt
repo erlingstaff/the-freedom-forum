@@ -31,6 +31,10 @@ class MainActivity : AppCompatActivity() {
     private val PERMISSION_REQUEST_FINE_LOCATION = 1
     private val PERMISSION_REQUEST_BACKGROUND_LOCATION = 2
 
+    private var send = ""
+    private var sent = 1
+    private var sentTo = mutableListOf<String>()
+
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,8 +94,8 @@ class MainActivity : AppCompatActivity() {
         val bluetoothManager = applicationContext.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
         val bluetoothAdapter = bluetoothManager.adapter
 
-        val newuuid = UUID.fromString("4fafc201-1fb5-459e-8fcc-c5c9c331914b")
-        val anotheruuid = UUID.fromString("00001802-0000-1000-8000-00805f9b34ff")
+        val serviceUUID = UUID.fromString("4fafc201-1fb5-459e-8fcc-c5c9c331914b")
+        val characteristicUUID = UUID.fromString("beb5483e-36e1-4688-b7f5-ea07361b26a8")
         val bleAdvertiser = bluetoothAdapter.getBluetoothLeAdvertiser()
 
         val gatt = object : BluetoothGattServerCallback(){
@@ -101,6 +105,25 @@ class MainActivity : AppCompatActivity() {
             }
             override fun onCharacteristicWriteRequest (device : BluetoothDevice, requestId : Int, characteristic : BluetoothGattCharacteristic, preparedWrite : Boolean, responseNeeded : Boolean, offset : Int, value : ByteArray) {
                 super.onCharacteristicWriteRequest(device, requestId, characteristic, preparedWrite, responseNeeded, offset, value)
+                val length: Int = value.size
+                val reversed = ByteArray(length)
+                for (i in 0 until length) {
+                    reversed[i] = value[length - (i + 1)]
+                }
+                val string = String(reversed)
+                send = string
+                sent = 0
+                sentTo.clear()
+                val nytest = ArrayList<String>()
+                nytest.add(string)
+                nytest.add(string)
+                nytest.add(getTime())
+                itms.add(nytest)
+                adapter.notifyDataSetChanged()
+                recyclerView.post { adapter.notifyDataSetChanged() }
+                recyclerView.smoothScrollToPosition(itms.size-1)
+                Log.d("HERHERS", "SENDTE "+string)
+                //sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, offset, 0, null)
                 Log.d("onCharacteristicWriteRequest", "device: $device, requestId: $requestId, characteristic: $characteristic, preparedWrite: $preparedWrite, responseNeeded: $responseNeeded, offset: $offset, value: $value")
             }
 
@@ -136,9 +159,10 @@ class MainActivity : AppCompatActivity() {
 
 
         var server = bluetoothManager.openGattServer(this, gatt)
-        val service = BluetoothGattService(UUID.fromString("00001801-0000-1000-8000-00805f9b34fb"), BluetoothGattService.SERVICE_TYPE_PRIMARY)
-        val characteristic = BluetoothGattCharacteristic(UUID.fromString("00002a00-0000-1000-8000-00805f9b34fb"), BluetoothGattCharacteristic.PROPERTY_READ, BluetoothGattCharacteristic.PERMISSION_READ)
-        service.addCharacteristic(characteristic)
+        val service = BluetoothGattService(serviceUUID, BluetoothGattService.SERVICE_TYPE_PRIMARY)
+        val writeCharacteristic = BluetoothGattCharacteristic(characteristicUUID, BluetoothGattCharacteristic.PROPERTY_WRITE, BluetoothGattCharacteristic.PERMISSION_WRITE)
+
+        service.addCharacteristic(writeCharacteristic)
         server.addService(service)
 
         val set = AdvertiseSettings.Builder()
@@ -200,12 +224,16 @@ class MainActivity : AppCompatActivity() {
                                     val characteristics = service.characteristics
                                     for (characteristic in characteristics){
                                         if (characteristic.uuid == uuid){
-                                            Log.d("herher", "Found characteristic "+characteristic.uuid)
-                                            characteristic.setValue("hei hei");
-                                            characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
-                                            gatt.writeCharacteristic(characteristic);
-                                            gatt.readCharacteristic(characteristic);
-                                            gatt.disconnect()
+                                            if (sentTo.find { it.contains(device.address) } == null){
+                                                Log.d("herher", "Found characteristic "+characteristic.uuid)
+                                                if (send != ""){
+                                                    characteristic.setValue(send);
+                                                    characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
+                                                    gatt.writeCharacteristic(characteristic);
+                                                    sentTo.add(device.address)
+                                                    gatt.disconnect()
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -284,6 +312,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter = itemAdapter
         recyclerView = recv
+        recyclerView.smoothScrollToPosition(itms.size-1)
 
         val nytest = ArrayList<String>()
         nytest.add("test")
