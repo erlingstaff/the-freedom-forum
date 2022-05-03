@@ -203,7 +203,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
         if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivityForResult(enableBtIntent, 1)
@@ -304,14 +303,15 @@ class MainActivity : AppCompatActivity() {
         val settingsbtn = findViewById<ImageView>(R.id.settingsbtn)
         settingsbtn.setOnClickListener{
             //TODO: open settings activity, settings for chaninging name and channel
-            //val intent = Intent(this, SettingsActivity::class.java)
-            //startActivity(intent)
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
         }
         val infobtn = findViewById<ImageView>(R.id.infobtn)
         infobtn.setOnClickListener{
             //TODO: open info activity, show FAQ, simple explenation, and explain protocol
-            //val intent = Intent(this, InfoActivity::class.java)
-            //startActivity(intent)
+            val intent = Intent(this, InfoActivity::class.java)
+            startActivity(intent)
+
         }
 
         val btn = findViewById<ImageView>(R.id.button)
