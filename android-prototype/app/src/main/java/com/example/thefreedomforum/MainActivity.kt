@@ -8,9 +8,7 @@ import android.bluetooth.le.*
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
-import android.os.Bundle
-import android.os.ParcelUuid
+import android.os.*
 import android.util.Log
 import android.view.Gravity
 import android.widget.EditText
@@ -20,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thefreedomforum.adapters.ItemAdapter
+import kotlinx.coroutines.delay
 import java.util.*
 
 
@@ -28,12 +27,14 @@ class MainActivity : AppCompatActivity() {
     private var itms = ArrayList<ArrayList<String>>()
     private lateinit var adapter: ItemAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var serverLate : BluetoothGattServer
     private val PERMISSION_REQUEST_FINE_LOCATION = 1
     private val PERMISSION_REQUEST_BACKGROUND_LOCATION = 2
 
     private var send = ""
     private var sent = 1
     private var sentTo = mutableListOf<String>()
+    private var whiteListDevices = mutableListOf<String>()
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,10 +95,10 @@ class MainActivity : AppCompatActivity() {
         val bluetoothManager = applicationContext.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
         val bluetoothAdapter = bluetoothManager.adapter
 
-        val serviceUUID = UUID.fromString("4fafc201-1fb5-459e-8fcc-c5c9c331914b")
-        val characteristicUUID = UUID.fromString("beb5483e-36e1-4688-b7f5-ea07361b26a8")
+        val serviceUUID = UUID.fromString("4FAFC201-1FB5-459E-8FCC-C5C9C331914B")
+        val characteristicUUID = UUID.fromString("BEB5483E-36E1-4688-B7F5-EA07361B26A8")
+        val startUUID = UUID.fromString("00001801-0000-1000-8000-00805f9b34fb")
         val bleAdvertiser = bluetoothAdapter.getBluetoothLeAdvertiser()
-
         val gatt = object : BluetoothGattServerCallback(){
             override fun onCharacteristicReadRequest (device : BluetoothDevice, requestId : Int, offset: Int, characteristic: BluetoothGattCharacteristic) {
                 super.onCharacteristicReadRequest(device, requestId, offset, characteristic)
@@ -123,6 +124,7 @@ class MainActivity : AppCompatActivity() {
                 recyclerView.post { adapter.notifyDataSetChanged() }
                 recyclerView.smoothScrollToPosition(itms.size-1)
                 Log.d("HERHERS", "SENDTE "+string)
+                serverLate.sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, offset, value)
                 //sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, offset, 0, null)
                 Log.d("onCharacteristicWriteRequest", "device: $device, requestId: $requestId, characteristic: $characteristic, preparedWrite: $preparedWrite, responseNeeded: $responseNeeded, offset: $offset, value: $value")
             }
@@ -149,7 +151,10 @@ class MainActivity : AppCompatActivity() {
             }
             override fun onConnectionStateChange (device : BluetoothDevice, status : Int, newState : Int){
                 super.onConnectionStateChange(device, status, newState)
-                Log.d("onConnectionStateChange", "device: $device, status: $status, newState: $newState")
+                if (whiteListDevices.contains(device.address) == false){
+                    whiteListDevices.add(device.address)
+                }
+                Log.d("onConnectionStateChanged", "device: $device, status: $status, newState: $newState")
             }
             override fun onServiceAdded (status : Int, service : BluetoothGattService){
                 super.onServiceAdded(status, service)
@@ -158,12 +163,12 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        var server = bluetoothManager.openGattServer(this, gatt)
+        serverLate = bluetoothManager.openGattServer(this, gatt)
         val service = BluetoothGattService(serviceUUID, BluetoothGattService.SERVICE_TYPE_PRIMARY)
         val writeCharacteristic = BluetoothGattCharacteristic(characteristicUUID, BluetoothGattCharacteristic.PROPERTY_WRITE, BluetoothGattCharacteristic.PERMISSION_WRITE)
 
         service.addCharacteristic(writeCharacteristic)
-        server.addService(service)
+        serverLate.addService(service)
 
         val set = AdvertiseSettings.Builder()
             .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY)
@@ -174,10 +179,15 @@ class MainActivity : AppCompatActivity() {
 
         val data = AdvertiseData.Builder()
             .setIncludeDeviceName(true)
-            .addServiceUuid(ParcelUuid(UUID.fromString("00001801-0000-1000-8000-00805f9b34fb")))
+            //.addServiceUuid(ParcelUuid(serviceUUID))
+            //.addServiceUuid(ParcelUuid(UUID.fromString("00001801-0000-1000-8000-00805f9b34fb")))
             .build()
 
-        bleAdvertiser.startAdvertising(set, data, object : AdvertiseCallback() {
+        val scanResponse = AdvertiseData.Builder()
+            .addServiceUuid(ParcelUuid(serviceUUID))
+            .build()
+
+        bleAdvertiser.startAdvertising(set, data, scanResponse, object : AdvertiseCallback() {
             override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
                 super.onStartSuccess(settingsInEffect)
                 Log.d("onStartSuccess", "settingsInEffect: $settingsInEffect")
@@ -200,22 +210,26 @@ class MainActivity : AppCompatActivity() {
         }
         val settings = ScanSettings.Builder().setScanMode(ScanSettings.CALLBACK_TYPE_ALL_MATCHES).build()
 
-
+        var connected = 0
         val devices = mutableListOf<BluetoothDevice>()
         val bluetoothGattService = bluetoothAdapter.bluetoothLeScanner.startScan(object : ScanCallback() {
             override fun onScanResult(callbackType: Int, result: ScanResult) {
                 super.onScanResult(callbackType, result)
+                val deviceUUID = result.scanRecord?.serviceUuids
                 val device = result.device
                 val deviceName = device.name
-                if (deviceName == "freedomforum"){
+                val deviceAddress = device.uuids
+                Log.d("UUIDSS", deviceUUID.toString())
+                if (deviceUUID != null) {
                     device.connectGatt(this@MainActivity, false, object : BluetoothGattCallback() {
                         override fun onConnectionStateChange(gatt: BluetoothGatt?, status: Int, newState: Int) {
                             super.onConnectionStateChange(gatt, status, newState)
                             if (newState == BluetoothProfile.STATE_CONNECTED){
+                                connected += 1
+                                Log.d("connectedd", connected.toString())
                                 gatt?.discoverServices()
                             }
                         }
-
                         override fun onServicesDiscovered(gatt: BluetoothGatt?, status: Int) {
                             super.onServicesDiscovered(gatt, status)
                             if (status == BluetoothGatt.GATT_SUCCESS){
@@ -224,20 +238,32 @@ class MainActivity : AppCompatActivity() {
                                     val characteristics = service.characteristics
                                     for (characteristic in characteristics){
                                         if (characteristic.uuid == uuid){
+                                            Log.d("utenfor", "utenfor")
                                             if (sentTo.find { it.contains(device.address) } == null){
                                                 Log.d("herher", "Found characteristic "+characteristic.uuid)
                                                 if (send != ""){
+                                                    Log.d("Burdes", send)
                                                     characteristic.setValue(send);
                                                     characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
                                                     gatt.writeCharacteristic(characteristic);
                                                     sentTo.add(device.address)
-                                                    gatt.disconnect()
                                                 }
                                             }
                                         }
                                     }
                                 }
-
+                            }
+                            if (whiteListDevices.contains(device.address)){
+                                Log.d("whiteListDevices", whiteListDevices.toString() + " vs " + device.address)
+                                removeDevice(gatt)
+                                //gatt?.disconnect()
+                                //gatt?.close()
+                            }
+                            else{
+                                connected -= 1
+                                Log.d("connectedd", connected.toString())
+                                gatt?.disconnect()
+                                gatt?.close()
                             }
                         }
 
@@ -247,34 +273,30 @@ class MainActivity : AppCompatActivity() {
                             Log.d("herher", "Read value "+value.toString())
 
                         }
+
+                        fun removeDevice(gatt : BluetoothGatt?){
+                            Handler(Looper.getMainLooper()).postDelayed(
+                                {
+                                    connected -= 1
+                                    Log.d("connectedd", connected.toString())
+                                    gatt?.disconnect()
+                                    gatt?.close()
+                                },
+                                10000 // value in milliseconds
+                            )
+                        }
+
                     })
-                }
                 val deviceAddress = device.address
                 val deviceRssi = result.rssi
-                val deviceUUID = result.scanRecord?.serviceUuids
                 val deviceData = ArrayList<String>()
                 deviceData.add(deviceName)
                 deviceData.add(deviceAddress)
                 deviceData.add(deviceRssi.toString())
                 deviceData.add(deviceUUID.toString())
                 Log.d("Devices", deviceData.toString())
-                devices.add(device)
-                if (devices.size > 5){
-                    Log.d("innom", "innom")
-                    bluetoothAdapter.bluetoothLeScanner.stopScan(object : ScanCallback(){
-                        override fun onScanFailed(errorCode: Int) {
-                            super.onScanFailed(errorCode)
-                            Log.d("Devices", "Scan failed")
-                        }
-
-                        override fun onScanResult(callbackType: Int, result: ScanResult?) {
-                            super.onScanResult(callbackType, result)
-                            Log.d("Devices", "Scan result")
-                        }
-                    })
-                    devices.clear()
-                }
             }
+        }
         })
 
         bluetoothAdapter.bluetoothLeAdvertiser
@@ -362,6 +384,8 @@ class MainActivity : AppCompatActivity() {
         new_item.add("Me")
         new_item.add(message)
         new_item.add(getTime())
+        send = message
+        sentTo.clear()
 
         itms.add(new_item)
         adapter.notifyDataSetChanged()
