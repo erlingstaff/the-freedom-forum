@@ -9,7 +9,10 @@ Android app that works as a chat interface and BLE message relayer.
 Microcontroller project that works as a LoRa and BLE message relayer.
 
 ## Screenshots
-
+<details>
+<summary>Screenshots</summary>
+<img width="500" src="https://raw.githubusercontent.com/erlingstaff/the-freedom-forum/master/Screenshots/Chat.jpg?token=GHSAT0AAAAAABSJMNYFVMZEVZZZMAA4M62GYTSTHDA"/>
+</details>
 
 ## Installation
 
