@@ -1,6 +1,6 @@
 # LoRa and bluetooth communication
 
-An android application that provide simple communication between two bluetooth enables devices using LoRa for intermidiate data transfer. This is made as a part of the Oslo Freedom Forum Hackathon Spring 2022.
+An android application that provide simple communication between n bluetooth enabled devices using LoRa for intermidiate data transfer. This is made as a part of the Oslo Freedom Forum Hackathon Spring 2022.
 
 ## Features
 
