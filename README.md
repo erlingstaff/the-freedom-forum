@@ -1,6 +1,3 @@
-
-# [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 # LoRa and bluetooth communication
 
 An android application that provide simple communication between two bluetooth enables devices using LoRa for intermidiate data transfer. This is made as a part of the Oslo Freedom Forum Hackathon Spring 2022.
