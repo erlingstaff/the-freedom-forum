@@ -17,11 +17,11 @@ Microcontroller project that works as a LoRa and BLE message relayer.
 
 ### Distance Test
 
-<img src="https://user-images.githubusercontent.com/38101463/166745245-7c71ea20-f303-4f06-9e6a-dcacfba1be49.png" width="200" />
+<img src="https://user-images.githubusercontent.com/38101463/166745245-7c71ea20-f303-4f06-9e6a-dcacfba1be49.png" width="400" />
 
 ### Microcontrollers
 
-<img src="https://user-images.githubusercontent.com/38101463/166745753-55ddf668-a609-47fb-ba4c-437de7681ca7.png" width="200" />
+<img src="https://user-images.githubusercontent.com/38101463/166745753-55ddf668-a609-47fb-ba4c-437de7681ca7.png" width="400" />
 
 ## Installation
 
