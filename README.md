@@ -10,7 +10,6 @@ Microcontroller project that works as a LoRa and BLE message relayer.
 
 ## Screenshots
 
-TODO
 
 ## Installation
 
