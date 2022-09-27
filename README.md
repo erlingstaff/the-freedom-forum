@@ -1,5 +1,7 @@
 # LoRa and bluetooth communication
 
+[Documentation of our solution](https://github.com/erlingstaff/the-freedom-forum/blob/master/Accessible%20long-range%20communication%20without%20internet%20(1).pdf)
+
 An android application that provides simple communication between bluetooth enabled devices using LoRa for intermidiate data transfer. This is made as a part of the Oslo Freedom Forum Hackathon Spring 2022.
 
 ## Features
